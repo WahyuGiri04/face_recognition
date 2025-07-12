@@ -28,7 +28,7 @@ pip install fastapi uvicorn deepface opencv-python-headless numpy tf-keras
 ## 🏁 Menjalankan Server
 
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 5001 --reload
+uvicorn app.main:app --host 0.0.0.0 --port 5001 --reload
 ```
 
 ---
@@ -161,3 +161,14 @@ Untuk keluar dari virtual environment:
 deactivate
 ```
 
+## 🛠️ Build & Run with Docker
+
+### 🔧 1. Build the Docker image
+ ```bash
+  docker build -t face-recognition:1.0.0 .
+  ```
+
+### 🚀 2. Run the container
+```bash
+  docker run -d -p 5001:5001 --name face-recognition face-recognition:1.0.0
+  ```
