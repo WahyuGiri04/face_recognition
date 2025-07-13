@@ -1,0 +1,27 @@
+# Gunakan image Python resmi sebagai base image
+FROM python:3.11-slim
+
+# Set working directory di container
+WORKDIR /app
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Install dependencies sistem yang diperlukan
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install dependencies Python
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+
+# Copy seluruh kode aplikasi
+COPY . .
+
+# Expose port yang digunakan FastAPI (biasanya 8000)
+EXPOSE 5001
+
+# Jalankan aplikasi dengan Uvicorn
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5001", "--reload"]
