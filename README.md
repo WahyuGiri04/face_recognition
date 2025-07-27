@@ -20,7 +20,7 @@ API sederhana untuk membandingkan dua wajah dan memverifikasi apakah mereka adal
 Pastikan Python 3.8+ sudah terpasang, lalu install dependensi:
 
 ```bash
-pip install fastapi uvicorn deepface opencv-python-headless numpy tf-keras
+pip install fastapi uvicorn deepface opencv-python-headless numpy tf-keras websockets
 ```
 
 ---
