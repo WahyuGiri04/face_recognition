@@ -3,6 +3,7 @@ create table if not exists "user_management".employee (
     uuid UUID DEFAULT gen_random_uuid(),
     full_name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
+    image_base64 TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by INTEGER,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -28,8 +29,8 @@ create table if not exists "user_management".face (
 drop table if exists "user_management".employee;
 drop table if exists "user_management".face;
 
-insert into "user_management".employee (full_name, email, created_by, updated_by)
-values ('John Doe', 'john@gmail.com', 1, 1);
+insert into "user_management".employee (full_name, email, image_base64, created_by, updated_by)
+values ('John Doe', 'john@gmail.com', ' ', 1, 1);
 
 select * from "user_management".employee;
 
