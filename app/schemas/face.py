@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
 import uuid
 from datetime import datetime
@@ -13,6 +13,7 @@ class FaceCreate(FaceBase):
     pass
 
 class FaceUpdate(BaseModel):
+    employee_id: Optional[int] = None
     image_base64: Optional[str] = None
     is_active: Optional[bool] = None
     is_deleted: Optional[bool] = None
@@ -23,5 +24,4 @@ class FaceResponse(FaceBase):
     created_at: datetime
     updated_at: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

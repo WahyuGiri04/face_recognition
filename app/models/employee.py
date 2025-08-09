@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP, text
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 import uuid
 from app.core.database import Base
 
@@ -8,12 +9,15 @@ class Employee(Base):
     __table_args__ = {"schema": "user_management"}
 
     id = Column(Integer, primary_key=True, index=True)
-    uuid = Column(UUID(as_uuid=True), default=uuid.uuid4)
+    uuid = Column(UUID(as_uuid=True), default=uuid.uuid4, unique=True)
     full_name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
     created_at = Column(TIMESTAMP, server_default=text("CURRENT_TIMESTAMP"))
     created_by = Column(Integer)
-    updated_at = Column(TIMESTAMP, server_default=text("CURRENT_TIMESTAMP"))
+    updated_at = Column(TIMESTAMP, server_default=text("CURRENT_TIMESTAMP"), onupdate=text("CURRENT_TIMESTAMP"))
     updated_by = Column(Integer)
     is_active = Column(Boolean, default=True)
     is_deleted = Column(Boolean, default=False)
+    
+    # Relationship with Face
+    faces = relationship("Face", back_populates="employee", cascade="all, delete-orphan")
