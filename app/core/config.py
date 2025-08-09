@@ -1,29 +1,15 @@
-from functools import lru_cache
-from pydantic import PostgresDsn
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    postgres_host: str
-    postgres_port: int = 5432
-    postgres_user: str
-    postgres_password: str
-    postgres_db: str
+    APP_NAME: str
+    APP_PORT: int
+    DB_USER: str
+    DB_PASSWORD: str
+    DB_HOST: str
+    DB_PORT: int
+    DB_NAME: str
 
-    @property
-    def database_url(self) -> str:
-        return str(
-            PostgresDsn.build(
-                scheme="postgresql+psycopg2",
-                username=self.postgres_user,
-                password=self.postgres_password,
-                host=self.postgres_host,
-                port=self.postgres_port,
-                path=self.postgres_db,
-            )
-        )
+    class Config:
+        env_file = ".env"
 
-    model_config = {"env_file": ".env", "case_sensitive": False}  # Updated for Pydantic v2
-
-@lru_cache
-def get_settings() -> Settings:
-    return Settings()
+settings = Settings()
