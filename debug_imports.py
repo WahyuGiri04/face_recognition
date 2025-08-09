@@ -7,6 +7,7 @@ try:
     print("1. Testing schemas...")
     from app.schemas.employee import EmployeeCreate, EmployeeUpdate, EmployeeResponse
     from app.schemas.face import FaceCreate, FaceUpdate, FaceResponse
+    from app.schemas.face_recognition import VerifyRequest, VerifyResponse
     print("   ✓ Schemas imported successfully")
     
     print("2. Testing models...")

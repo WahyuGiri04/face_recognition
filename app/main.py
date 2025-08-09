@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from app.core.database import Base, engine
 from app.core.config import settings
+from fastapi.middleware.cors import CORSMiddleware
 
 # Import models to ensure they are registered
 from app.models.employee import Employee
@@ -14,7 +15,16 @@ from app.routers.face_router import router as face_router
 # Create tables
 Base.metadata.create_all(bind=engine)
 
+# ---------- FASTAPI SETUP ----------
 app = FastAPI(title=settings.APP_NAME, version="1.0.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 app.include_router(employee_router)
 app.include_router(face_router)
